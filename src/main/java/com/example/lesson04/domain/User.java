@@ -1,14 +1,14 @@
-package com.example.practice.domain;
+package com.example.lesson04.domain;
 
 import java.util.Date;
 
-public class Company {
+public class User {
 
 	private int id;
 	private String name;
-	private String business;
-	private String scale;
-	private String headcount;
+	private String yyyymmdd;
+	private String email;
+	private String introduce;
 	private Date createdAt;
 	private Date updatedAt;
 
@@ -28,28 +28,28 @@ public class Company {
 		this.name = name;
 	}
 
-	public String getBusiness() {
-		return business;
+	public String getYyyymmdd() {
+		return yyyymmdd;
 	}
 
-	public void setBusiness(String business) {
-		this.business = business;
+	public void setYyyymmdd(String yyyymmdd) {
+		this.yyyymmdd = yyyymmdd;
 	}
 
-	public String getScale() {
-		return scale;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setScale(String scale) {
-		this.scale = scale;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getHeadcount() {
-		return headcount;
+	public String getIntroduce() {
+		return introduce;
 	}
 
-	public void setHeadcount(String headcount) {
-		this.headcount = headcount;
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
 	}
 
 	public Date getCreatedAt() {
