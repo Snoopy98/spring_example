@@ -5,11 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 @RequestMapping("/lesson05")
-public class Lesson05Ex01Controller {
+@Controller
+public class Lesson05Controller {
+
 	@GetMapping("/ex01")
 	public String ex01() {
 		return "lesson05/ex01";
@@ -43,5 +47,6 @@ public class Lesson05Ex01Controller {
 		model.addAttribute("users", users);
 
 		return "lesson05/ex02";
-}
+		
+	}
 }
