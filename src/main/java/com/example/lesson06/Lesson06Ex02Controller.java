@@ -33,7 +33,7 @@ public class Lesson06Ex02Controller {
 		// db 조회
 		boolean existUser = userBO.existUserByName(name);
 		
-		//{"is
+		
 		Map<String, Boolean> result = new HashMap<>();
 		result.put("isDuplication", existUser);
 		return result;
