@@ -47,14 +47,13 @@
 			</tr>
 		</thead>
 		<tbody>
-
 			<c:forEach items="${bookingList}" var="booking">
 			<tr>
 			
 				<td>${booking.name}</td>
 				<td>
 				<fmt:parseDate value="${booking.date}" pattern="yyyy-M-dd" var="date"/>
-				<fmt:formatDate value="${date}" pattern="yyyy년 M월 dd일" /> 
+				<fmt:formatDate value="${date}" pattern="yyyy년 M월 d일" /> 
 				</td>
 				<td>${booking.day}</td>
 				<td>${booking.headcount}</td>
@@ -89,6 +88,7 @@
 		$('button[name=delBtn]').on("click",function(){
 			//alert("삭제");
 			let id = $(this).attr('value');
+			// data 이용방법 let id= $(this).data('delte-id'); 버튼 태그안에 data-delte-id = "${booking.id}" 부여
 		$.ajax({
 			//request
 			type:'delete'
@@ -97,13 +97,14 @@
 			//response
 			,success:function(data){
 				if(data.result == "성공"){
+					alert("삭제 되었습니다.");
 					location.reload();
 				}else{
 					alert("실패하였습니다. 관리자에게 문의 해주세요.")
 				}
 			} // success
 			,error:function(request,status,error){
-				alert("삭제 실패");
+				alert(data.errorMessage);
 			}// error
 		}); // ajax 삭제 버튼	
 			

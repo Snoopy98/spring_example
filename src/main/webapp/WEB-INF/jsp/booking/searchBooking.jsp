@@ -124,14 +124,18 @@ footer {height:80px; margin-top:30px;}
 				//response
 				,success:function(data){
 				
-					if(data.result == "성공"){
-						alert("이름:");
+					if(data.code == 1){
+						alert("이름 : "+ data.booking.name 
+								+ "\n날짜 : " + data.booking.date
+								+"\n일수 : " + data.booking.day
+								+"\n인원 : " + data.booking.headcount
+								+"\n상태 : " + data.booking.state);
 					}else{
-						alert("bad");
+						alert(data.errorMessage);
 					}
 				}//success
 				,error:function(request,status,error){
-					alert("예약 내역이 없습니다.");
+					alert("조회에 실패했습니다.");
 				}
 			}); // ajax
 				

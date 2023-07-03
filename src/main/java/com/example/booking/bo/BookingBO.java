@@ -13,6 +13,7 @@ import com.example.booking.domain.Booking;
 public class BookingBO {
 	@Autowired
 	 private BookingMapper bookingMapper;
+	
 		public List<Booking> getBookingList(){
 			return bookingMapper.selectBookingList();
 		}
@@ -26,9 +27,11 @@ public class BookingBO {
 		}
 		
 		public Booking getBookingByNamePhoneNumber(String name, String phoneNumber) {
-			return bookingMapper.selectBookingByNamePhoneNumber(name, phoneNumber);
-		}
-		public int isBookingByNamePhoneNumber(String name, String phoneNumber) {
-			return bookingMapper.isBookingByNamePhoneNumber(name, phoneNumber);
+			// 가능한값 :  [], [bookingA,bookingB.....]
+			List<Booking> bookingList = bookingMapper.selectBookingByNamePhoneNumber(name, phoneNumber);
+			if(bookingList.isEmpty()) {
+				return null;
+			}
+		return bookingList.get(bookingList.size() - 1); // 마지막 값을 준다. (최신 예약)	
 		}
 }

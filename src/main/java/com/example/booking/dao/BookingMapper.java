@@ -14,18 +14,15 @@ public interface BookingMapper {
 	
 	public int deleteBookingList(int id);
 	
-	public int insertBookingList(
+	public int insertBookingList( // @Param = Map 으로 만들어주는 역할
 			@Param("name") String name,
 			@Param("date") String date, 
 			@Param("day") int day, 
 			@Param("headcount") int headcount, 
 			@Param("phoneNumber") String phoneNumber);
 	
-	public Booking selectBookingByNamePhoneNumber(
+	public List<Booking> selectBookingByNamePhoneNumber(
 			@Param("name") String name, 
 			@Param("phoneNumber") String phoneNumber);
 	
-	public int isBookingByNamePhoneNumber(
-			@Param("name") String name, 
-			@Param("phoneNumber") String phoneNumber);
 }

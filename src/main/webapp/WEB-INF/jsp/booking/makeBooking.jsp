@@ -98,9 +98,8 @@ footer {height:80px; margin-top:30px;}
 	<script>
 		$(document).ready(function(){
 			$('#date').datepicker({
-				changeMonth : true, // 월 셀렉트 박스 
-				changeYear : true, // 년 셀렉트 박스 
-				dateFormat : "yy-mm-dd", // 표시 포멧 
+				dateFormat : "yy-mm-dd",
+				minDate:0 
 			});
 			
 			$('#reservationBtn').on('click',function(){
@@ -110,12 +109,7 @@ footer {height:80px; margin-top:30px;}
 				let day = $('#day').val().trim();
 				let headcount = $('#headcount').val().trim();
 				let phoneNumber = $('#phoneNumber').val().trim();
-				alert(name);
-				alert(date);
-				alert(day);
-				alert(headcount);
-				alert(phoneNumber);
-				
+			
 				//validation
 				if(name == ""){
 					alert("이름을 입력해주세요.");
@@ -129,11 +123,20 @@ footer {height:80px; margin-top:30px;}
 					alert("숙박일수를 입력해주세요.");
 					return;
 				}
+				if(isNaN(day)){ // 숫자가 아닐때 참 (나중에 다른건 정규식 검색)
+					alert("숙박일수는 숫자만 입력 가능합니다.");
+				return;
+				}
+				
 				if(headcount ==""){
 					alert("숙박인원을 입력해주세요");
 					return;
 				}
-				if(phoneNumber == ""){
+				if(isNaN(headcount)){
+					alert("숙박인원은 숫자만 입력 가능합니다.")
+					return;
+				}
+				if(phoneNumber == ""){ // 전화번호 정규식 검색
 					alert("핸드폰 번호를 입력해주세요.")
 					return;
 				}
@@ -147,12 +150,13 @@ footer {height:80px; margin-top:30px;}
 				,success:function(data){
 					if(data.result == "성공"){
 						alert("booking insert success");
+						location.href = "/booking_Site_View";
 					}else{
-						alert("booking insert fail");
+						alert(data.errorMessage);
 					}
 				}// success
 				,error:function(request,status,error){
-					alert("걍 실패")
+					alert("예약 실패했습니다. 관리자에게 문의 해주세요.")
 				}//error
 				});//ajax
 			});// 예약하기 버튼

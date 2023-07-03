@@ -22,7 +22,6 @@ public class BookingController {
 	private BookingBO bookingBO;
 	
 	
-	
 	// 예약 목록 화면
 	@GetMapping("/booking_Site_View")
 public String siteView(Model model) {
@@ -44,7 +43,7 @@ public String siteView(Model model) {
 			result.put("result", "성공");
 			result.put("code", 1);
 		}else{
-			result.put("result", "실패");
+			result.put("errorMessage", "삭제될 데이터가 없습니다.");
 			result.put("code", 500);
 		}
 		
@@ -57,13 +56,13 @@ public String siteView(Model model) {
 		return "booking/makeBooking";
 	}
 	
-	//ajax 인서트
+	// ajax 인서트
 	
 	@PostMapping("/booking_success")
 	@ResponseBody
 	public Map<String,Object> bookingInsert(
 			@RequestParam("name") String name,
-			@RequestParam("date") String date,
+			@RequestParam("date") String date, //@DateTimeFormat 을 붙이고 Date 객체로 받아와도 된다.
 			@RequestParam("day") int day,
 			@RequestParam("headcount") int headcount,
 			@RequestParam("phoneNumber") String phoneNumber){
@@ -71,8 +70,10 @@ public String siteView(Model model) {
 		int insertRow = bookingBO.addBookingList(name, date, day, headcount, phoneNumber);
 				if(insertRow > 0) {
 					result.put("result", "성공");	
+					result.put("code", 1);
 				}else {
-					result.put("result", "실패");	
+					result.put("code", "500");	
+					result.put("errorMessage", "예약 데이터가 추가되지 못했습니다.");	
 				}
 		return result;
 	}
@@ -84,21 +85,23 @@ public String siteView(Model model) {
 	}
 	
 	// ajax 예약 확인
-	@ResponseBody
+	@ResponseBody     // model 사용 x 바디가 없이 리턴타입이 jsp일경우만 model 사용 가능 
 	@PostMapping("/reservation_check")
 	public Map<String, Object> checking(
 			@RequestParam("name") String name,
-			@RequestParam("phoneNumber") String phoneNumber,
-			Model model){
+			@RequestParam("phoneNumber") String phoneNumber
+			){
+		// db select 
+		Booking booking = bookingBO.getBookingByNamePhoneNumber(name, phoneNumber);
+		// 응답 JSON
 		Map<String,Object> result = new HashMap<>();
-		Booking booking = bookingBO.getBookingByNamePhoneNumber(name, phoneNumber); 
-		int row = bookingBO.isBookingByNamePhoneNumber(name, phoneNumber);
-		model.addAttribute("booking",booking);
-		if(row > 0) {
-			result.put("result", "성공");
-		}else {
-			result.put("result", "실패");
-		}
+		 if(booking == null) {
+			 result.put("code", 300);
+			 result.put("errorMessage", "예약 내역이 없습니다.");
+		 }else {
+			 result.put("code", 1);
+			 result.put("booking", booking);
+		 }
 		
 		return result;
 	}
