@@ -2,6 +2,8 @@ package com.example.booking.domain;
 
 import java.util.Date;
 
+import lombok.Data;
+@Data
 public class Booking {
 	private int id;
 	private String name;
