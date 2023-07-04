@@ -20,7 +20,7 @@ import lombok.ToString;
 @Entity // 이 클래스는 Entity 다
 @Table(name = "new_student")  // 테이블 명에 _ 가 붙어있을떄 꼭 추가한다.
 @Getter // getter
-@Builder // setter 대용
+@Builder(toBuilder = true) // setter 대용
 @NoArgsConstructor // 파라미터 없는 기본 생성자
 @AllArgsConstructor // 모든 필드를 인자값으로 받는 생성자
 @ToString // toString override  값 예쁘게출력

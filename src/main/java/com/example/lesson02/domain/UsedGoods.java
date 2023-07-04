@@ -2,6 +2,8 @@ package com.example.lesson02.domain;
 
 import java.util.Date;
 
+import lombok.Data;
+@Data
 public class UsedGoods {
 	private int id;
 	private int sellerId;

@@ -1,5 +1,7 @@
 package com.example.lesson04.bo;
 
+import java.time.ZonedDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,9 @@ private StudentRepository studentRepository;
 	return	studentMapper.selectStudentById(id);
 	}
 	
-	public StudentEntity addStudent(String name , String phoneNumber, String email, String dreanJob) {
+	public StudentEntity addStudent(String name , String phoneNumber, String email, String dreamJob) {
 		StudentEntity student = studentRepository.save(
-				StudentEntity.
+				StudentEntity.builder()
 				.name(name)
 				.phoneNumber(phoneNumber)
 				.email(email)
@@ -33,6 +35,23 @@ private StudentRepository studentRepository;
 				.createdAt(ZonedDateTime.now())  //@UpdatdTimeStamp 생략 가능
 				.build()
 				);
+		return student;
+	}
+	
+	// input: id, dreamJob
+	// output: StudentEntity
+	public StudentEntity updateStudentDreamJobById(int id , String dreamJob) {
+		// 기존 데이터 조회 (id)
+		StudentEntity student = studentRepository.findById(id).orElse(null);
+		// entity 변경 (dreamJob 변경) => save
+		if(student != null) {
+			student.toBuilder()  // 기존값 유지하고 일부만 변경
+			.dreamJob(dreamJob)
+			.build();
+		student = studentRepository.save(student);	 //update
+		}
+		//findById()
+		
 		return student;
 	}
 }
