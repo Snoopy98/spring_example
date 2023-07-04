@@ -45,7 +45,7 @@ private StudentRepository studentRepository;
 		StudentEntity student = studentRepository.findById(id).orElse(null);
 		// entity 변경 (dreamJob 변경) => save
 		if(student != null) {
-			student.toBuilder()  // 기존값 유지하고 일부만 변경
+		student = student.toBuilder()  // 기존값 유지하고 일부만 변경
 			.dreamJob(dreamJob)
 			.build();
 		student = studentRepository.save(student);	 //update
