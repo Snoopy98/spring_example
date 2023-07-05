@@ -21,7 +21,6 @@ public interface StudentRepository extends JpaRepository<StudentEntity,Integer>{
 	// findAll();
 	
 	public List<StudentEntity> findAllByOrderByIdDesc();
-	
 	public List<StudentEntity> findTop2ByOrderByIdDesc();
 	public List<StudentEntity> findByName(String name);
 	public List<StudentEntity> findByNameIn(List<String> names);
